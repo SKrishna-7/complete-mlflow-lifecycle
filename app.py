@@ -64,9 +64,13 @@ def pipeline():
         mlflow.log_metric("presicion",a)
         mlflow.log_metric("recall",r)
 
+        remote_url="https://dagshub.com/SKrishna-7/complete-mlflow-lifecycle.mlflow"
+        mlflow.set_tracking_uri(remote_url)
+
         tracking_url_type=urlparse(mlflow.get_tracking_uri()).scheme
         sig=infer_signature(xtrain,pred)
         if tracking_url_type!='file':
+            
             mlflow.sklearn.log_model(
                 lr,"model",
                 registered_model_name="Simplelogisticmodel"
